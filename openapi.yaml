@@ -1,93 +1,159 @@
 openapi: 3.0.1
 info:
-  title: TODO Plugin
-  description: A plugin that allows the user to create and manage a TODO list using ChatGPT. If you do not know the user's username, ask them first before making queries to the plugin. Otherwise, use the username "global".
+  title: S3 Access
+  description: GPT-4 browser Plugin to access, read, write, delete and modify files in your S3 bucket.
   version: 'v1'
 servers:
   - url: http://localhost:5003
 paths:
-  /todos/{username}:
+  /bucket/{bucketName}:
     get:
-      operationId: getTodos
-      summary: Get the list of todos
+      summary: Read S3 Bucket
       parameters:
-      - in: path
-        name: username
-        schema:
+        - name: bucketName
+          in: path
+          required: true
+          schema:
             type: string
-        required: true
-        description: The name of the user.
       responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTodosResponse'
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid bucket name supplied
+        '404':
+          description: Bucket not found
+  /bucket/{bucketName}/{folderName}:
+    get:
+      summary: Read S3 Bucket Folder
+      parameters:
+        - name: bucketName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: folderName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid bucket or folder name supplied
+        '404':
+          description: Bucket or folder not found
+  /bucket/{bucketName}/{folderName}/{fileName}:
+    get:
+      summary: Read S3 Bucket File
+      parameters:
+        - name: bucketName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: folderName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fileName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid bucket, folder or file name supplied
+        '404':
+          description: Bucket, folder or file not found
     post:
-      operationId: addTodo
-      summary: Add a todo to the list
+      summary: Write S3 Bucket File
       parameters:
-      - in: path
-        name: username
-        schema:
+        - name: bucketName
+          in: path
+          required: true
+          schema:
             type: string
-        required: true
-        description: The name of the user.
+        - name: folderName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fileName
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/addTodoRequest'
+              type: object
       responses:
-        "200":
-          description: OK
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid bucket, folder or file name supplied
+        '404':
+          description: Bucket or folder not found
+    put:
+      summary: Modify S3 Bucket File
+      parameters:
+        - name: bucketName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: folderName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fileName
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid bucket, folder or file name supplied
+        '404':
+          description: Bucket, folder or file not found
     delete:
-      operationId: deleteTodo
-      summary: Delete a todo from the list
+      summary: Delete S3 Bucket File
       parameters:
-      - in: path
-        name: username
-        schema:
+        - name: bucketName
+          in: path
+          required: true
+          schema:
             type: string
-        required: true
-        description: The name of the user.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/deleteTodoRequest'
+        - name: folderName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fileName
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
-        "200":
-          description: OK
-
-components:
-  schemas:
-    getTodosResponse:
-      type: object
-      properties:
-        todos:
-          type: array
-          items:
-            type: string
-          description: The list of todos.
-    addTodoRequest:
-      type: object
-      required:
-      - todo
-      properties:
-        todo:
-          type: string
-          description: The todo to add to the list.
-          required: true
-    deleteTodoRequest:
-      type: object
-      required:
-      - todo_idx
-      properties:
-        todo_idx:
-          type: integer
-          description: The index of the todo to delete.
-          required: true
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid bucket, folder or file name supplied
+        '404':
+          description: Bucket, folder or file not found
+          
