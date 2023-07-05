@@ -1,7 +1,7 @@
-import json
+import os
 import quart
-import quart_cors
 from quart import request
+import quart_cors
 
 app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.com")
 

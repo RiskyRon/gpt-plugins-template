@@ -1,7 +1,7 @@
 {
     "schema_version": "v1",
-    "name_for_human": "S3 Access (Risky Ron",
-    "name_for_model": "S3 Access",
+    "name_for_human": "S3 Access by Risky Ron",
+    "name_for_model": "S3_Access",
     "description_for_human": "Unofficial AWS S3 bucket plugin. SHare your bucket with GPT-4",
     "description_for_model": "GPT-4 browser Plugin to access, read, write, delete and modify files in your S3 bucket.",
     "auth": {
