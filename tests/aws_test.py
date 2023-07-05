@@ -2,7 +2,7 @@ import boto3
 from botocore.exceptions import NoCredentialsError
 import os
 from dotenv import load_dotenv
-from main import app
+from mainoriginalkinda import app
 
 load_dotenv()
 

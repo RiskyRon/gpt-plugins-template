@@ -8,6 +8,7 @@ servers:
 paths:
   /bucket/{bucketName}:
     get:
+      operationId: getBucket
       summary: Read S3 Bucket
       parameters:
         - name: bucketName
@@ -24,6 +25,7 @@ paths:
           description: Bucket not found
   /bucket/{bucketName}/{folderName}:
     get:
+      operationId: getBucketFolder
       summary: Read S3 Bucket Folder
       parameters:
         - name: bucketName
@@ -45,6 +47,7 @@ paths:
           description: Bucket or folder not found
   /bucket/{bucketName}/{folderName}/{fileName}:
     get:
+      operationId: getBucketFile
       summary: Read S3 Bucket File
       parameters:
         - name: bucketName
@@ -70,6 +73,7 @@ paths:
         '404':
           description: Bucket, folder or file not found
     post:
+      operationId: createBucketFile
       summary: Write S3 Bucket File
       parameters:
         - name: bucketName
@@ -93,6 +97,7 @@ paths:
           application/json:
             schema:
               type: object
+              additionalProperties: true  # This allows any type of JSON object
       responses:
         '200':
           description: Successful operation
@@ -101,6 +106,7 @@ paths:
         '404':
           description: Bucket or folder not found
     put:
+      operationId: updateBucketFile
       summary: Modify S3 Bucket File
       parameters:
         - name: bucketName
@@ -124,6 +130,7 @@ paths:
           application/json:
             schema:
               type: object
+              additionalProperties: true  # This allows any type of JSON object
       responses:
         '200':
           description: Successful operation
@@ -132,6 +139,7 @@ paths:
         '404':
           description: Bucket, folder or file not found
     delete:
+      operationId: deleteBucketFile
       summary: Delete S3 Bucket File
       parameters:
         - name: bucketName
@@ -156,4 +164,3 @@ paths:
           description: Invalid bucket, folder or file name supplied
         '404':
           description: Bucket, folder or file not found
-          
