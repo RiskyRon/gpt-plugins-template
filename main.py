@@ -1,6 +1,7 @@
 #main.py
 import os
 import quart
+import mimetypes
 from quart import request
 import quart_cors
 import boto3
@@ -31,7 +32,7 @@ async def read_bucket_folder(bucketName, folderName):
     except Exception as e:
         return quart.jsonify({"error": str(e)}), 400
 
-import mimetypes
+
 
 @app.route("/bucket/<bucketName>/<folderName>/<fileName>", methods=['GET'])
 async def read_bucket_file(bucketName, folderName, fileName):

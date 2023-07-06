@@ -18,3 +18,14 @@ try:
 except NoCredentialsError:
     print('No AWS Credentials were found.')
 
+# Define the function to create a new 'folder' in an S3 bucket
+def mkdir(bucket, folder):
+    s3.put_object(Bucket=bucket, Key=(folder+'/'))
+
+# Then use the function to create a folder
+try:
+    # Replace 'rondb' and 'newfoldername' with your actual bucket name and folder name
+    mkdir('rondb', 'newfoldername')
+    print("Folder created successfully.")
+except Exception as e:
+    print(f"An error occurred: {e}")
